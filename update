@@ -1,0 +1,13 @@
+#!/bin/execlineb -P
+backtick -n date {
+  export TZ UTC0
+  busybox date +%Y%m%dT%H%M%SZ
+}
+importas -u date date
+if { s6-rc-compile /etc/rc/compiled.${date} /etc/rc/source }
+if {
+  if -t { busybox test -d /etc/rc/compiled }
+  s6-rc-update /etc/rc/compiled.${date}
+}
+if { busybox rm -rf /etc/rc/compiled }
+busybox ln -fns compiled.${date} /etc/rc/compiled
