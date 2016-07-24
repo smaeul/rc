@@ -1,0 +1,8 @@
+#!/bin/execlineb -S0
+redirfd -w 1 /dev/console
+fdmove -c 2 1
+foreground { s6-svc -X /run/service/misc-logger }
+unexport ?
+wait -r { }
+cd /
+/etc/rc/shutdown ${@}

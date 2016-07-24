@@ -1,0 +1,16 @@
+#!/bin/execlineb -S0
+foreground { busybox printf "Syncing disks.\n" }
+foreground { busybox sync }
+foreground { busybox printf "Sending all processes the TERM signal.\n" }
+foreground { kill -s TERM -- -1 }
+foreground { busybox sleep 3 }
+foreground { busybox printf "Sending all processes the KILL signal.\n" }
+foreground { kill -s KILL -- -1 }
+wait { }
+foreground { busybox printf "Syncing disks.\n" }
+foreground { busybox sync }
+foreground { busybox printf "Unmounting disks.\n" }
+foreground { busybox umount -ar }
+foreground { busybox mount -o remount,ro / }
+foreground { busybox printf "\nPerforming "${1}".\n" }
+busybox ${1} -f
