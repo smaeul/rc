@@ -1,0 +1,21 @@
+background {
+  if -t { busybox grep -Fq fusectl /proc/filesystems }
+  if -nt { busybox mountpoint -q /sys/fs/fuse/connections }
+  busybox mount -o nodev,noexec,nosuid -t fusectl fusectl /sys/fs/fuse/connections
+}
+background {
+  if -t { busybox grep -Fq configfs /proc/filesystems }
+  if -nt { busybox mountpoint -q /sys/kernel/config }
+  busybox mount -o nodev,noexec,nosuid -t configfs configfs /sys/kernel/config
+}
+background {
+  if -t { busybox grep -Fq debugfs /proc/filesystems }
+  if -nt { busybox mountpoint -q /sys/kernel/debug }
+  busybox mount -o nodev,noexec,nosuid -t debugfs debugfs /sys/kernel/debug
+}
+background {
+  if -t { busybox grep -Fq securityfs /proc/filesystems }
+  if -nt { busybox mountpoint -q /sys/kernel/security }
+  busybox mount -o nodev,noexec,nosuid -t securityfs securityfs /sys/kernel/security
+}
+wait { }

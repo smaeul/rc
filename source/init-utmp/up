@@ -1,0 +1,2 @@
+redirfd -a 1 /run/utmp
+exit

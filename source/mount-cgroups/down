@@ -1,0 +1,11 @@
+if -t { busybox test -e /proc/cgroups }
+if -t {
+  pipeline { busybox find /sys/fs/cgroup -mindepth 1 -maxdepth 1 -type d -print0 }
+  forstdin -0p dir
+  importas -u dir dir
+  if -t { busybox mountpoint -q ${dir} }
+  if { busybox umount ${dir} }
+  busybox rmdir ${dir}
+}
+if -t { busybox mountpoint -q /sys/fs/cgroup }
+busybox umount /sys/fs/cgroup

@@ -1,0 +1,17 @@
+background {
+  if -t { busybox mountpoint -q /dev/hugepages }
+  busybox umount /dev/hugepages
+}
+background {
+  if -t { busybox mountpoint -q /dev/mqueue }
+  busybox umount /dev/mqueue
+}
+background {
+  if -t { busybox mountpoint -q /dev/pts }
+  busybox umount /dev/pts
+}
+background {
+  if -t { busybox mountpoint -q /dev/shm }
+  busybox umount /dev/shm
+}
+wait { }

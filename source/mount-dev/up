@@ -1,0 +1,23 @@
+background {
+  if -t { busybox grep -Fq hugetlbfs /proc/filesystems }
+  if -nt { busybox mountpoint -q /dev/hugepages }
+  if { busybox mkdir -p /dev/hugepages }
+  busybox mount -o nodev,noexec,nosuid -t hugetlbfs hugepages /dev/hugepages
+}
+background {
+  if -t { busybox grep -Fq mqueue /proc/filesystems }
+  if -nt { busybox mountpoint -q /dev/mqueue }
+  if { busybox mkdir -p /dev/mqueue }
+  busybox mount -o nodev,noexec,nosuid -t mqueue mqueue /dev/mqueue
+}
+background {
+  if -nt { busybox mountpoint -q /dev/pts }
+  if { busybox mkdir -p /dev/pts }
+  busybox mount -o noexec,nosuid -t devpts devpts /dev/pts
+}
+background {
+  if -nt { busybox mountpoint -q /dev/shm }
+  if { busybox mkdir -p /dev/shm }
+  busybox mount -o nodev,noexec,nosuid -t tmpfs shm /dev/shm
+}
+wait { }
