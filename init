@@ -4,7 +4,10 @@ s6-envdir -fIn /etc/rc/env
 s6-setsid -bq
 umask 022
 if { busybox mount -o nodev,noexec,nosuid -t proc proc /proc }
-if { busybox mount -o mode=0755,nosuid,size=1M -t devtmpfs dev /dev }
+if {
+  if -nt { busybox mountpoint -q /dev }
+  busybox mount -o mode=0755,nosuid,size=1M -t devtmpfs dev /dev
+}
 if { busybox mount -o mode=0755,nodev,nosuid,size=64M -t tmpfs run /run }
 if { busybox mount -o nodev,noexec,nosuid -t sysfs sys /sys }
 if { busybox mount -o mode=1777,nodev,nosuid -t tmpfs tmp /tmp }
