@@ -13,7 +13,7 @@ background {
 background {
   if -nt { busybox mountpoint -q /dev/pts }
   if { busybox mkdir -p /dev/pts }
-  busybox mount -o noexec,nosuid -t devpts devpts /dev/pts
+  busybox mount -o gid=5,mode=620,noexec,nosuid,ptmxmode=000 -t devpts devpts /dev/pts
 }
 background {
   if -nt { busybox mountpoint -q /dev/shm }
