@@ -1,2 +1,10 @@
 #!/bin/execlineb -P
+background {
+  fdmove 1 3
+  loopwhilex -x 0
+  if { udevadm control --start-exec-queue }
+  echo
+}
+unexport !
+fdclose 3
 udevd
