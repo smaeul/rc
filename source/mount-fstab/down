@@ -1,3 +1,6 @@
-backtick dirs { busybox sed -n "s/^[^#]\\S*\\s\\+\\(\\/\\S\\+\\)\\s.*$/\\1/p" /etc/fstab }
+backtick dirs {
+  pipeline { busybox sed -n "s/^[^#]\\S*\\s\\+\\(\\/\\S\\+\\)\\s.*$/\\1/p" /etc/fstab }
+  busybox sort -r
+}
 importas -su dirs dirs
 if -t { busybox umount ${dirs} }
