@@ -1,0 +1,7 @@
+if -t { test -r /etc/conf.d/net-devices }
+pipeline { busybox tac /etc/conf.d/net-devices }
+forstdin -d "\n" device
+importas -u device device
+multidefine -r -- ${device} { iface dummy }
+if -t { grep -Fq ${iface} /proc/net/dev }
+ip link del ${iface}

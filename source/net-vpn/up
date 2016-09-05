@@ -1,0 +1,3 @@
+if { ip link set wg0 down }
+if { wg setconf wg0 /etc/wireguard.conf }
+ip link set wg0 up

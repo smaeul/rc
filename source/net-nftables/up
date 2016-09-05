@@ -1,0 +1,2 @@
+if -t { test -r /var/lib/nftables/rules }
+nft -f /var/lib/nftables/rules

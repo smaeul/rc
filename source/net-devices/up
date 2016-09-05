@@ -1,0 +1,8 @@
+if -t { test -r /etc/conf.d/net-devices }
+redirfd -r 0 /etc/conf.d/net-devices
+forstdin -d "\n" device
+importas -u device device
+multidefine -r -- ${device} { iface options }
+if -nt { grep -Fq ${iface} /proc/net/dev }
+if { ip link add ${iface} ${options} }
+ip link set ${iface} up
