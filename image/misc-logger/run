@@ -4,5 +4,6 @@ if { busybox chown logs:logs /run/log/misc }
 redirfd -bnr 0 fifo
 redirfd -w 1 /dev/null
 redirfd -w 2 /dev/console
+umask 027
 s6-setuidgid logs
 s6-log -bp t /run/log/misc
