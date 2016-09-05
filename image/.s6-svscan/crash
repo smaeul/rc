@@ -4,4 +4,5 @@ redirfd -w 1 /dev/console
 fdmove -c 2 1
 foreground { busybox printf "\n\ns6-svscan crashed. Dropping to an interactive shell.\n" }
 unexport ?
+export TERM linux
 /bin/sh -i
