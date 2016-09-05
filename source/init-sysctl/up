@@ -1,1 +1,5 @@
+foreground {
+  redirfd -w 1 /proc/sys/kernel/ctrl-alt-del
+  printf 0
+}
 busybox sysctl -p /etc/sysctl.conf
