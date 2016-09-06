@@ -1,13 +1,40 @@
-#!/bin/execlineb -P
-backtick -n date {
-  export TZ UTC0
-  busybox date +%Y%m%dT%H%M%SZ
-}
-importas -u date date
-if { s6-rc-compile /etc/rc/compiled.${date} /etc/rc/source }
-if {
-  if -t { busybox test -d /etc/rc/compiled }
-  s6-rc-update /etc/rc/compiled.${date}
-}
-if { busybox rm -rf /etc/rc/compiled }
-busybox ln -fns compiled.${date} /etc/rc/compiled
+#!/bin/sh -eu
+# s6-rc preprocessor and updater frontend
+# Copyright © 2016 Samuel Holland <samuel@sholland.org>
+# See LICENSE in the project directory for license terms.
+# vim: expandtab:sts=2:sw=2:ts=8:tw=110
+#
+
+base=/etc/rc
+date=$(TZ=UTC0 date +%Y%m%dT%H%M%SZ)
+tmpdir=$(mktemp -d)
+trap 'rm -rf "$tmpdir"' HUP INT QUIT TERM
+
+for svcdir in "$base"/source/* ; do
+  if test -r "$svcdir"/instances ; then
+    svcname=${svcdir##*/}
+    svcout=${tmpdir}/${svcname}
+
+    mkdir "$svcout"
+    printf 'bundle\n' > "$svcout"/type
+    sed "s/^/${svcname}@/" "$svcdir"/instances > "$svcout"/contents
+
+    while read -r instance ; do
+      svcout=${tmpdir}/${svcname}@${instance}
+
+      cp -pR "$svcdir" "$svcout"
+      find "$svcout" -type f -exec sed -i "s/%I/${instance}/g" {} +
+    done < "$svcdir"/instances
+  else
+    cp -pR "$svcdir" "$tmpdir"
+  fi
+done
+
+s6-rc-compile "${base}/compiled.${date}" "$tmpdir"
+if test -d "${base}/compiled" ; then
+  s6-rc-update "${base}/compiled.${date}"
+fi
+rm -rf "${base}/compiled"
+ln -fns "compiled.${date}" "${base}/compiled"
+
+rm -rf "$tmpdir"
