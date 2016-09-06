@@ -1,2 +1,5 @@
 ok-local
 ok-network
+smartd
+smtpd
+sshd
