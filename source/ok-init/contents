@@ -1,3 +1,4 @@
+init-backlight
 init-coldplug
 init-hostname
 init-sysctl
