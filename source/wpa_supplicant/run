@@ -1,8 +1,2 @@
 #!/bin/execlineb -P
-fdmove -c 2 1
-backtick fullargs {
-  sed "s@^.*$@-N -i& -c/etc/wpa_supplicant/wpa_supplicant-&.conf@" /etc/wpa_supplicant/interfaces
-}
-importas -u fullargs fullargs
-multidefine -r -- ${fullargs} { dummy args }
-wpa_supplicant ${args}
+wpa_supplicant -i%I -c/etc/wpa_supplicant/wpa_supplicant-%I.conf
