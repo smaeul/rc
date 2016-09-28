@@ -6,4 +6,4 @@ init-tmpfiles
 init-urandom
 init-utmp
 mount
-syslog
+syslogd
