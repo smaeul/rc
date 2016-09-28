@@ -1,2 +1,2 @@
 #!/bin/execlineb -P
-agetty tty1 linux
+agetty tty2 linux
