@@ -1,4 +1,4 @@
-mount-cgroups
+mount-cgroup
 mount-dev
 mount-fstab
 mount-swap
