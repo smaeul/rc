@@ -1,6 +1,7 @@
 cupsd
 getty
 net
+ntpd
 smartd
 smtpd
 sshd
