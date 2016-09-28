@@ -11,6 +11,6 @@ foreground { busybox printf "Syncing disks.\n" }
 foreground { busybox sync }
 foreground { busybox printf "Unmounting disks.\n" }
 foreground { busybox mount -o remount,ro / }
-foreground { busybox umount -afnr }
+foreground { umount -afnr }
 foreground { busybox printf "\nPerforming "${1}".\n" }
 busybox ${1} -f
