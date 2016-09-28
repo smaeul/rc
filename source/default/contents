@@ -1,6 +1,6 @@
 cupsd
-ok-local
-ok-network
+getty
+net
 smartd
 smtpd
 sshd

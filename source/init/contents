@@ -5,8 +5,5 @@ init-sysctl
 init-tmpfiles
 init-urandom
 init-utmp
-mount-cgroups
-mount-dev
-mount-fstab
-mount-swap
-mount-sys
+mount
+syslog
