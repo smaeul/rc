@@ -1,4 +1,0 @@
-#!/bin/execlineb -P
-umask 027
-s6-setuidgid logs
-s6-log !xz t /var/log/sshd

@@ -13,28 +13,54 @@ trap 'rm -rf "$tmpdir"' HUP INT QUIT TERM
 for svcdir in "$base"/source/* ; do
   if test -r "$svcdir"/instances ; then
     svcname=${svcdir##*/}
-    svcout=${tmpdir}/${svcname}
+    outdir=${tmpdir}/${svcname}
 
-    mkdir "$svcout"
-    printf 'bundle\n' > "$svcout"/type
-    sed "s/^/${svcname}@/" "$svcdir"/instances > "$svcout"/contents
+    mkdir "$outdir"
+    printf 'bundle\n' > "$outdir"/type
+    sed "s/^/${svcname}@/" "$svcdir"/instances > "$outdir"/contents
 
     while read -r instance ; do
-      svcout=${tmpdir}/${svcname}@${instance}
+      outdir=${tmpdir}/${svcname}@${instance}
 
-      cp -pR "$svcdir" "$svcout"
-      find "$svcout" -type f -exec sed -i "s/%I/${instance}/g" {} +
+      cp -pR "$svcdir" "$outdir"
+      find "$outdir" -type f -exec sed -i "s/%I/${instance}/g" {} +
     done < "$svcdir"/instances
   else
     cp -pR "$svcdir" "$tmpdir"
   fi
 done
 
-s6-rc-compile "${base}/compiled.${date}" "$tmpdir"
-if test -d "${base}/compiled" ; then
-  s6-rc-update "${base}/compiled.${date}"
+for svcdir in "$tmpdir"/* ; do
+  if test -r "$svcdir"/logdir ; then
+    svcname=${svcdir##*/}
+    logname="${svcname} (logger)"
+    outdir=${tmpdir}/${logname}
+    logdir=/var/log/$(cat "$svcdir"/logdir)
+
+    mkdir "$outdir"
+    printf '%s\n' "$logname" > "${svcdir}/producer-for"
+    printf '%s\n' "$svcname" > "${outdir}/consumer-for"
+    printf 'mount\n' > "$outdir"/dependencies
+    cat > "$outdir"/run << EOF
+#!/bin/execlineb -P
+if { mkdir -p ${logdir} }
+if { chmod 750 ${logdir} }
+if { chown logs:logs ${logdir} }
+umask 027
+s6-setuidgid logs
+s6-log !lzip t ${logdir}
+EOF
+    chmod +x "$outdir"/run
+    printf 'longrun\n' > "$outdir"/type
+  fi
+done
+
+if s6-rc-compile -h nobody "${base}/compiled.${date}" "$tmpdir"; then
+  if test -d "${base}/compiled" ; then
+    s6-rc-update "${base}/compiled.${date}"
+  fi
+  rm -rf "${base}/compiled"
+  ln -fns "compiled.${date}" "${base}/compiled"
 fi
-rm -rf "${base}/compiled"
-ln -fns "compiled.${date}" "${base}/compiled"
 
 rm -rf "$tmpdir"
