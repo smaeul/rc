@@ -1,6 +1,7 @@
 init-backlight
 init-coldplug
 init-hostname
+init-loopback
 init-sysctl
 init-tmpfiles
 init-urandom

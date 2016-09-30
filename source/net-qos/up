@@ -1,4 +1,0 @@
-pipeline { busybox ls /sys/class/net }
-forstdin -p iface
-importas -u iface iface
-tc qdisc replace dev ${iface} root fq_codel

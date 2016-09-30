@@ -1,7 +1,8 @@
 cupsd
+dhcpcd
 getty
-net
 ntpd
 smartd
 smtpd
 sshd
+wpa_supplicant

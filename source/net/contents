@@ -1,7 +1,0 @@
-dhcpcd
-net-devices
-net-lo
-net-nftables
-net-qos
-net-vpn
-wpa_supplicant
