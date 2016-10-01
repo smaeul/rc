@@ -33,7 +33,7 @@ done
 for svcdir in "$tmpdir"/* ; do
   if test -r "$svcdir"/logdir ; then
     svcname=${svcdir##*/}
-    logname="${svcname} (logger)"
+    logname="${svcname}-logger"
     outdir=${tmpdir}/${logname}
     logdir=/var/log/$(cat "$svcdir"/logdir)
 
