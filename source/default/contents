@@ -1,5 +1,6 @@
 cupsd
 dhcpcd
+dnsmasq
 getty
 ntpd
 smartd
