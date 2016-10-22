@@ -1,0 +1,1 @@
+wg setconf %I /etc/wireguard/%I.conf

@@ -1,0 +1,35 @@
+if {
+  cd /etc/net/interfaces
+  s6-envdir -f .
+  elglob -0 list *
+  forx iface { ${list} }
+  importas -u iface iface
+  importas -su ${iface} ${iface}
+  if {
+    if -nt { busybox grep -Fq ${iface} /proc/net/dev }
+    if { ip link add ${iface} ${${iface}} }
+  }
+  ip link set ${iface} up
+}
+if {
+  cd /etc/net/addresses
+  s6-envdir -f .
+  elglob -0 list *
+  forx iface { ${list} }
+  importas -u iface iface
+  importas -su -d"\n" ${iface} ${iface}
+  forx addr { ${${iface}} }
+  importas -su addr addr
+  ip address add dev ${iface} ${addr}
+}
+if {
+  cd /etc/net/routes
+  s6-envdir -f .
+  elglob -0 list *
+  forx iface { ${list} }
+  importas -u iface iface
+  importas -su -d"\n" ${iface} ${iface}
+  forx route { ${${iface}} }
+  importas -su route route
+  ip route replace dev ${iface} ${route}
+}

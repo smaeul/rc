@@ -1,0 +1,6 @@
+foreground {
+  if { mkdir -p /var/lib/nftables }
+  redirfd -w 1 /var/lib/nftables/current
+  nft list ruleset
+}
+nft flush ruleset

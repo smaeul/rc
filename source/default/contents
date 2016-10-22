@@ -2,8 +2,10 @@ cupsd
 dhcpcd
 dnsmasq
 getty
+nftables
 ntpd
 smartd
 smtpd
 sshd
+wireguard
 wpa_supplicant
