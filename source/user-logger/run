@@ -1,0 +1,7 @@
+#!/bin/execlineb -P
+if { busybox mkdir -p /run/log/user/%I }
+if { busybox chown logs:%I /run/log/user/%I }
+if { busybox chmod 2750 /run/log/user/%I }
+s6-setuidgid logs
+umask 027
+s6-log !lzip t /run/log/user/%I

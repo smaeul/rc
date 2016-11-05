@@ -1,0 +1,6 @@
+if { mkdir -p /run/user/%I }
+if {
+  if -nt { mountpoint -q /run/user/%I }
+  mount -o mode=0700,nodev,nosuid,size=64M -t tmpfs user /run/user/%I
+}
+chown %I:%I /run/user/%I

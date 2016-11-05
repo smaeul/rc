@@ -1,0 +1,4 @@
+foreground {
+  if { umount /run/user/%I }
+  rmdir /run/user/%I
+}

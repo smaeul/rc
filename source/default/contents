@@ -7,5 +7,7 @@ ntpd
 smartd
 smtpd
 sshd
+user-session
+user-setup
 wireguard
 wpa_supplicant
