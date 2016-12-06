@@ -1,2 +1,2 @@
 #!/bin/execlineb -P
-agetty %I
+agetty tty4

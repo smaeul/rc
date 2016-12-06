@@ -1,17 +1,17 @@
-background {
-  if -t { busybox mountpoint -q /sys/fs/fuse/connections }
-  busybox umount /sys/fs/fuse/connections
+foreground {
+  if -t { mountpoint -q /sys/fs/fuse/connections }
+  umount /sys/fs/fuse/connections
 }
-background {
-  if -t { busybox mountpoint -q /sys/kernel/config }
-  busybox umount /sys/kernel/config
+foreground {
+  if -t { mountpoint -q /sys/kernel/config }
+  umount /sys/kernel/config
 }
-background {
-  if -t { busybox mountpoint -q /sys/kernel/debug }
-  busybox umount /sys/kernel/debug
+foreground {
+  if -t { mountpoint -q /sys/kernel/debug }
+  umount /sys/kernel/debug
 }
-background {
-  if -t { busybox mountpoint -q /sys/kernel/security }
-  busybox umount /sys/kernel/security
+foreground {
+  if -t { mountpoint -q /sys/kernel/security }
+  umount /sys/kernel/security
 }
-wait { }
+umount /sys

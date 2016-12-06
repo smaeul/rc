@@ -26,6 +26,6 @@ if {
   elglob -0s list *
   forx iface { ${list} }
   importas -u iface iface
-  if -t { busybox grep -Fq ${iface} /proc/net/dev }
+  if -t { grep -Fq ${iface} /proc/net/dev }
   ip link set ${iface} down
 }

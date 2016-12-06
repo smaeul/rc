@@ -1,0 +1,10 @@
+if -t {
+  pipeline { find /sys/fs/cgroup -mindepth 1 -maxdepth 1 -type d -print0 }
+  forstdin -0p dir
+  importas -u dir dir
+  if -t { mountpoint -q ${dir} }
+  if { umount ${dir} }
+  rmdir ${dir}
+}
+if -t { mountpoint -q /sys/fs/cgroup }
+umount /sys/fs/cgroup

@@ -1,23 +1,22 @@
-background {
-  if -t { busybox grep -Fq hugetlbfs /proc/filesystems }
-  if -nt { busybox mountpoint -q /dev/hugepages }
-  if { busybox mkdir -p /dev/hugepages }
-  busybox mount -o nodev,noexec,nosuid -t hugetlbfs hugepages /dev/hugepages
+foreground {
+  if -t { grep -Fq hugetlbfs /proc/filesystems }
+  if -nt { mountpoint -q /dev/hugepages }
+  if { mkdir -p /dev/hugepages }
+  mount -o noatime,nodev,noexec,nosuid -t hugetlbfs hugepages /dev/hugepages
 }
-background {
-  if -t { busybox grep -Fq mqueue /proc/filesystems }
-  if -nt { busybox mountpoint -q /dev/mqueue }
-  if { busybox mkdir -p /dev/mqueue }
-  busybox mount -o nodev,noexec,nosuid -t mqueue mqueue /dev/mqueue
+foreground {
+  if -t { grep -Fq mqueue /proc/filesystems }
+  if -nt { mountpoint -q /dev/mqueue }
+  if { mkdir -p /dev/mqueue }
+  mount -o noatime,nodev,noexec,nosuid -t mqueue mqueue /dev/mqueue
 }
-background {
-  if -nt { busybox mountpoint -q /dev/pts }
-  if { busybox mkdir -p /dev/pts }
-  busybox mount -o gid=5,mode=620,noexec,nosuid,ptmxmode=000 -t devpts devpts /dev/pts
+foreground {
+  if -nt { mountpoint -q /dev/pts }
+  if { mkdir -p /dev/pts }
+  mount -o gid=5,mode=620,noexec,nosuid,ptmxmode=000 -t devpts devpts /dev/pts
 }
-background {
-  if -nt { busybox mountpoint -q /dev/shm }
-  if { busybox mkdir -p /dev/shm }
-  busybox mount -o nodev,noexec,nosuid -t tmpfs shm /dev/shm
+foreground {
+  if -nt { mountpoint -q /dev/shm }
+  if { mkdir -p /dev/shm }
+  mount -o noatime,nodev,noexec,nosuid -t tmpfs shm /dev/shm
 }
-wait { }

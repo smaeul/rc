@@ -1,3 +1,0 @@
-if { busybox mkdir -p /var/lib/misc }
-umask 077
-busybox dd bs=32 count=256 if=/dev/urandom of=/var/lib/misc/random-seed

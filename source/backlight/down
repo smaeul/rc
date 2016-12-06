@@ -1,0 +1,2 @@
+redirfd -w 1 /var/lib/misc/backlight@%I
+cat /sys/class/backlight/%I/brightness

@@ -1,9 +1,12 @@
 #!/bin/execlineb -P
 background -d {
   fdmove 1 3
-  loopwhilex -x 0
-  if { udevadm control --start-exec-queue }
-  echo
+  loopwhilex -x 42
+  ifelse { udevadm control --start-exec-queue } {
+    foreground { echo }
+    exit 42
+  }
+  sleep 1
 }
 unexport !
 fdclose 3

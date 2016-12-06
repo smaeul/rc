@@ -1,3 +1,0 @@
-if { busybox mkdir -p /var/lib/misc }
-redirfd -w 1 /var/lib/misc/saved-brightness@%I
-busybox cat /sys/class/backlight/%I/brightness

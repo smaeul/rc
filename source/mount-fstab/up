@@ -1,1 +1,1 @@
-busybox mount -a
+mount %I

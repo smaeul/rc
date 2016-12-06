@@ -1,0 +1,11 @@
+if -t { test -e /proc/cgroups }
+if {
+  if -nt { mountpoint -q /sys/fs/cgroup }
+  mount -o mode=0755,noatime,nodev,noexec,nosuid,size=1M -t tmpfs cgroup /sys/fs/cgroup
+}
+pipeline { sed -n "1d;s/^\\([[:alpha:]]\\{1,\\}\\)\\t.*\\t1$/\\1/p" /proc/cgroups }
+forstdin -p controller
+importas -u controller controller
+if -nt { mountpoint -q /sys/fs/cgroup/${controller} }
+if { mkdir -p /sys/fs/cgroup/${controller} }
+mount -o ${controller} -t cgroup cgroup /sys/fs/cgroup/${controller}

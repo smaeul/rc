@@ -1,17 +1,16 @@
-background {
-  if -t { busybox mountpoint -q /dev/hugepages }
-  busybox umount /dev/hugepages
+foreground {
+  if -t { mountpoint -q /dev/hugepages }
+  umount /dev/hugepages
 }
-background {
-  if -t { busybox mountpoint -q /dev/mqueue }
-  busybox umount /dev/mqueue
+foreground {
+  if -t { mountpoint -q /dev/mqueue }
+  umount /dev/mqueue
 }
-background {
-  if -t { busybox mountpoint -q /dev/pts }
-  busybox umount /dev/pts
+foreground {
+  if -t { mountpoint -q /dev/pts }
+  umount /dev/pts
 }
-background {
-  if -t { busybox mountpoint -q /dev/shm }
-  busybox umount /dev/shm
+foreground {
+  if -t { mountpoint -q /dev/shm }
+  umount /dev/shm
 }
-wait { }

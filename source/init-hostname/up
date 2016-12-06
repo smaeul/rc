@@ -1,2 +1,0 @@
-redirfd -w 1 /proc/sys/kernel/hostname
-busybox cat /etc/hostname

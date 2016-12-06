@@ -1,0 +1,3 @@
+if -t { test -r /etc/hostname }
+redirfd -w 1 /proc/sys/kernel/hostname
+cat /etc/hostname

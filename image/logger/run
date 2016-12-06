@@ -1,0 +1,8 @@
+#!/bin/execlineb -P
+if { install -dg logs -m 0750 -o logs /run/log }
+redirfd -bnr 0 fifo
+redirfd -w 1 /dev/console
+fdmove -c 2 1
+umask 027
+s6-setuidgid logs
+s6-log -bp !lzip t /run/log

@@ -1,2 +1,4 @@
 dnsmasq
-init
+filesystems
+hostname
+loopback

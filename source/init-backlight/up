@@ -1,3 +1,0 @@
-if -t { busybox test -r /var/lib/misc/saved-brightness@%I }
-redirfd -w 1 /sys/class/backlight/%I/brightness
-busybox cat /var/lib/misc/saved-brightness@%I

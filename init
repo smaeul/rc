@@ -1,28 +1,22 @@
 #!/bin/execlineb -P
 emptyenv
-s6-envdir -fIn /etc/rc/env
-s6-setsid -bq
 umask 022
-if { busybox mount -o nodev,noexec,nosuid -t proc proc /proc }
-if {
-  if -nt { busybox mountpoint -q /dev }
-  busybox mount -o mode=0755,nosuid,size=1M -t devtmpfs dev /dev
-}
-if { busybox mount -o mode=0755,nodev,nosuid,size=64M -t tmpfs run /run }
-if { busybox mount -o nodev,noexec,nosuid -t sysfs sys /sys }
-if { busybox mount -o mode=1777,nodev,nosuid -t tmpfs tmp /tmp }
-if { busybox cp -pR /etc/rc/image /run/service }
-if { busybox mkfifo /run/service/misc-logger/fifo }
+s6-envdir -Ifn /etc/rc/env
+s6-setsid -bq
+if { mount -no nodev,noexec,nosuid -t proc proc /proc }
+if { mount -no mode=0755,nosuid,size=1M -t devtmpfs dev /dev }
+if { mount -no mode=0755,nodev,nosuid,size=64M -t tmpfs run /run }
+if { cp -pR /etc/rc/image /run/service }
+if { mkfifo -m 0600 /run/service/logger/fifo }
 redirfd -r 0 /dev/null
-redirfd -bnw 1 /run/service/misc-logger/fifo
+redirfd -bnw 1 /run/service/logger/fifo
+fdmove -c 2 1
 background {
   s6-setsid
-  redirfd -w 1 /run/service/misc-logger/fifo
-  fdmove -c 2 1
-  if { s6-rc-init -c /etc/rc/compiled /run/service }
+  redirfd -w 1 /run/service/logger/fifo
+  if { s6-rc-init -c /etc/rc/compiled -t 1000 /run/service }
   s6-rc -pu change default
 }
 unexport !
-fdmove -c 2 1
 cd /run/service
-s6-svscan -st0
+s6-svscan -s

@@ -1,1 +1,0 @@
-busybox mount -t cgroup2 cgroup /sys/fs/cgroup

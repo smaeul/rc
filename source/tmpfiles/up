@@ -1,0 +1,6 @@
+if { ln -fns /proc/self/fd /dev/fd }
+if { ln -fs /proc/self/fd/0 /dev/stdin }
+if { ln -fs /proc/self/fd/1 /dev/stdout }
+if { ln -fs /proc/self/fd/2 /dev/stderr }
+if { mkdir -p /run/lock }
+if { touch /run/utmp }

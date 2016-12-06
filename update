@@ -11,19 +11,21 @@ tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' HUP INT QUIT TERM
 
 for svcdir in "$base"/source/* ; do
-  if test -r "$svcdir"/instances ; then
+  if test -r "$svcdir"/disabled ; then
+    continue
+  elif test -r "$svcdir"/instances ; then
     svcname=${svcdir##*/}
     outdir=${tmpdir}/${svcname}
 
     mkdir "$outdir"
     printf 'bundle\n' > "$outdir"/type
-    sed "s/^/${svcname}@/" "$svcdir"/instances > "$outdir"/contents
+    sed -e "s/^/${svcname}@/" -e "s@/@-@g" "$svcdir"/instances > "$outdir"/contents
 
     while read -r instance ; do
-      outdir=${tmpdir}/${svcname}@${instance}
+      outdir=${tmpdir}/${svcname}@$(echo "${instance}" | tr / -)
 
       cp -pR "$svcdir" "$outdir"
-      find "$outdir" -type f -exec sed -i "s/%I/${instance}/g" {} +
+      find "$outdir" -type f -exec sed -i "s@%I@${instance}@g" {} +
     done < "$svcdir"/instances
   else
     cp -pR "$svcdir" "$tmpdir"
@@ -40,12 +42,10 @@ for svcdir in "$tmpdir"/* ; do
     mkdir "$outdir"
     printf '%s\n' "$logname" > "${svcdir}/producer-for"
     printf '%s\n' "$svcname" > "${outdir}/consumer-for"
-    printf 'mount\n' > "$outdir"/dependencies
+    printf 'filesystems\n' > "$outdir"/dependencies
     cat > "$outdir"/run << EOF
 #!/bin/execlineb -P
-if { mkdir -p ${logdir} }
-if { chmod 750 ${logdir} }
-if { chown logs:logs ${logdir} }
+if { install -dg logs -m 0750 -o logs ${logdir} }
 umask 027
 s6-setuidgid logs
 s6-log !lzip t ${logdir}

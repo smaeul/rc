@@ -1,1 +1,1 @@
-busybox swapoff -a
+swapoff %I

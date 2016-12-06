@@ -1,0 +1,3 @@
+if -t { test -r /var/lib/misc/backlight@%I }
+redirfd -w 1 /sys/class/backlight/%I/brightness
+cat /var/lib/misc/backlight@%I

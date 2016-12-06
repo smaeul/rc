@@ -6,7 +6,7 @@ if {
   importas -u iface iface
   importas -su ${iface} ${iface}
   if {
-    if -nt { busybox grep -Fq ${iface} /proc/net/dev }
+    if -nt { grep -Fq ${iface} /proc/net/dev }
     if { ip link add ${iface} ${${iface}} }
   }
   ip link set ${iface} up
