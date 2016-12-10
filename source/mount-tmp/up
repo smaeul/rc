@@ -1,0 +1,1 @@
+mount -o noatime,nodev,nosuid -t tmpfs tmp /tmp

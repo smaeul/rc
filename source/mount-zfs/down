@@ -1,0 +1,4 @@
+foreground {
+  redirfd -w 2 /dev/null
+  zfs umount -a
+}
