@@ -1,7 +1,7 @@
 if {
   cd /etc/net/interfaces
   s6-envdir -f .
-  elglob -0 list *
+  elglob -0s list *
   forx iface { ${list} }
   importas -u iface iface
   importas -su ${iface} ${iface}
@@ -12,9 +12,20 @@ if {
   ip link set ${iface} up
 }
 if {
+  cd /etc/net/links
+  s6-envdir -f .
+  elglob -0s list *
+  forx iface { ${list} }
+  importas -u iface iface
+  importas -su -d"\n" ${iface} ${iface}
+  forx link { ${${iface}} }
+  importas -su link link
+  ip link set ${iface} ${link}
+}
+if {
   cd /etc/net/addresses
   s6-envdir -f .
-  elglob -0 list *
+  elglob -0s list *
   forx iface { ${list} }
   importas -u iface iface
   importas -su -d"\n" ${iface} ${iface}
@@ -25,7 +36,7 @@ if {
 if {
   cd /etc/net/routes
   s6-envdir -f .
-  elglob -0 list *
+  elglob -0s list *
   forx iface { ${list} }
   importas -u iface iface
   importas -su -d"\n" ${iface} ${iface}
