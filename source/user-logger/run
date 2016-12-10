@@ -1,5 +1,5 @@
 #!/bin/execlineb -P
-if { install -dg %I -m 2750 -o logs /run/user/%I/log }
-umask 027
-s6-setuidgid logs
+if { install -dg %I -m 0700 -o %I /run/user/%I/log }
+umask 077
+s6-setuidgid %I
 s6-log !lzip t /run/user/%I/log
