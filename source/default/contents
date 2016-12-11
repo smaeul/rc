@@ -12,6 +12,7 @@ loopback
 networking
 ntpd
 random
+runc
 smartd
 smtpd
 sshd

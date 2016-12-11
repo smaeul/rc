@@ -1,0 +1,4 @@
+#!/bin/execlineb -P
+fdmove -c 2 1
+cd /container/%I
+runc run --no-new-keyring --no-subreaper %I
