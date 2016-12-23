@@ -1,4 +1,2 @@
-foreground {
-  if -t { mountpoint -q /tmp }
-  umount /tmp
-}
+if -t { mountpoint -q /tmp }
+foreground { umount /tmp }

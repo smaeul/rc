@@ -1,1 +1,1 @@
-umount %I
+foreground { umount %I }

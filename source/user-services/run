@@ -11,7 +11,7 @@ backtick -D /bin/sh -n SHELL {
 }
 export HOME ${HOME}
 export LOGNAME %I
-export USER %I
 export XDG_RUNTIME_DIR /run/user/%I
 fdmove -c 2 1
+subreaper
 s6-svscan -S

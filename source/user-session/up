@@ -4,6 +4,7 @@ importas -u HOME HOME
 foreground { mkdir -p /run/user/%I/service/.s6-svscan }
 foreground {
   umask 077
+  redirfd -w 2 /dev/null
   mkfifo /run/user/%I/service/.s6-svscan/control
 }
 redirfd -w 3 /run/user/%I/service/.s6-svscan/control
