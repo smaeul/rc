@@ -4,3 +4,4 @@ if { ln -fs /proc/self/fd/1 /dev/stdout }
 if { ln -fs /proc/self/fd/2 /dev/stderr }
 if { mkdir -p /run/lock }
 if { touch /run/utmp }
+if { install -d -m 1733 /tmp/.X11-unix }
