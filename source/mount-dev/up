@@ -13,7 +13,7 @@ foreground {
 foreground {
   if -nt { mountpoint -q /dev/pts }
   if { mkdir -p /dev/pts }
-  mount -o gid=5,mode=620,noexec,nosuid,ptmxmode=000 -t devpts devpts /dev/pts
+  mount -o mode=600,noexec,nosuid,ptmxmode=000 -t devpts devpts /dev/pts
 }
 foreground {
   if -nt { mountpoint -q /dev/shm }
