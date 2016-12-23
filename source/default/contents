@@ -20,5 +20,7 @@ sysctl
 syslogd
 tmpfiles
 udevd
+user-setup
+user-session
 wireguard
 wpa_supplicant
