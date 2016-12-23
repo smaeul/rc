@@ -2,10 +2,10 @@
 foreground { printf "Syncing disks.\n" }
 foreground { sync }
 foreground { printf "Sending all processes the TERM signal.\n" }
-foreground { kill -TERM -1 }
+foreground { busybox kill -TERM -1 }
 foreground { sleep 2 }
 foreground { printf "Sending all processes the KILL signal.\n" }
-foreground { kill -KILL -1 }
+foreground { busybox kill -KILL -1 }
 wait { }
 foreground { printf "Syncing disks.\n" }
 foreground { sync }
