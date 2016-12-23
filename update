@@ -45,9 +45,9 @@ for svcdir in "$tmpdir"/* ; do
     printf 'filesystems\n' > "$outdir"/dependencies
     cat > "$outdir"/run << EOF
 #!/bin/execlineb -P
-if { install -dg logs -m 0750 -o logs ${logdir} }
+if { install -dg log -m 0750 -o log ${logdir} }
 umask 027
-s6-setuidgid logs
+s6-setuidgid log
 s6-log !lzip t ${logdir}
 EOF
     chmod +x "$outdir"/run
