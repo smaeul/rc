@@ -6,7 +6,7 @@ foreground { busybox kill -TERM -1 }
 foreground { sleep 2 }
 foreground { printf "Sending all processes the KILL signal.\n" }
 foreground { busybox kill -KILL -1 }
-wait { }
+wait -t 2000 { }
 foreground { printf "Syncing disks.\n" }
 foreground { sync }
 foreground { printf "Unmounting disks.\n" }
