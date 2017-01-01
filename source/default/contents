@@ -13,6 +13,7 @@ klogd
 loopback
 networking
 ntpd
+nullhttpd
 random
 runc
 smartd
