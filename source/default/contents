@@ -1,7 +1,6 @@
 backlight
 cupsd
 bcron
-bcron-update
 devices
 dhcpcd
 dnsmasq
