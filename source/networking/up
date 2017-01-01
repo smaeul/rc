@@ -4,12 +4,9 @@ if {
   elglob -0s list *
   forx iface { ${list} }
   importas -u iface iface
+  if -nt { grep -Fq ${iface} /proc/net/dev }
   importas -su ${iface} ${iface}
-  if {
-    if -nt { grep -Fq ${iface} /proc/net/dev }
-    if { ip link add ${iface} ${${iface}} }
-  }
-  ip link set ${iface} up
+  ip link add ${iface} ${${iface}}
 }
 if {
   cd /etc/net/links
