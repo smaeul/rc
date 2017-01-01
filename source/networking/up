@@ -9,6 +9,14 @@ if {
   ip link add ${iface} ${${iface}}
 }
 if {
+  redirfd -w 1 /sys/class/net/bridge/bridge/multicast_snooping
+  printf 0
+}
+if {
+  redirfd -w 1 /sys/class/net/bridge/bridge/vlan_filtering
+  printf 1
+}
+if {
   cd /etc/net/links
   s6-envdir -f .
   elglob -0s list *
@@ -18,6 +26,23 @@ if {
   forx link { ${${iface}} }
   importas -su link link
   ip link set ${iface} ${link}
+}
+if {
+  cd /etc/net/vlans
+  s6-envdir -f .
+  elglob -0s list *
+  forx iface { ${list} }
+  importas -u iface iface
+  importas -su -d"\n" ${iface} ${iface}
+  if {
+    ifelse { test ${iface} = bridge } {
+      bridge vlan delete dev ${iface} vid 1 self
+    }
+    bridge vlan delete dev ${iface} vid 1
+  }
+  forx vlan { ${${iface}} }
+  importas -su vlan vlan
+  bridge vlan add dev ${iface} vid ${vlan}
 }
 if {
   cd /etc/net/addresses
