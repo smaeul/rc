@@ -1,5 +1,4 @@
 backlight
-cupsd
 bcron
 devices
 dhcpcd
@@ -29,4 +28,3 @@ user-session
 user-setup
 wireguard
 wpa_supplicant
-zed

@@ -4,5 +4,4 @@ mount-fstab
 mount-swap
 mount-sys
 mount-tmp
-mount-zfs
 tmpfiles

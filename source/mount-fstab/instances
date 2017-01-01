@@ -1,2 +1,4 @@
 /boot
+/home
+/srv
 /var
