@@ -22,6 +22,8 @@ sysctl
 syslogd
 tmpfiles
 udevd
+upsd
+upsmon
 user-session
 user-setup
 wireguard
