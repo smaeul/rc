@@ -1,9 +1,6 @@
 backlight
-cupsd
 bcron
 devices
-dhcpcd
-dnsmasq
 filesystems
 firewall
 getty
@@ -12,7 +9,6 @@ klogd
 loopback
 networking
 ntpd
-nullhttpd
 random
 runc
 smartd
@@ -22,7 +18,6 @@ sysctl
 syslogd
 tmpfiles
 udevd
-upsd
 upsmon
 user-session
 user-setup
