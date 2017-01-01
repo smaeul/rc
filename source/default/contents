@@ -8,6 +8,7 @@ filesystems
 firewall
 getty
 hostname
+irqbalance
 klogd
 loopback
 networking
