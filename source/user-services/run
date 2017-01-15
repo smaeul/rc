@@ -2,7 +2,7 @@
 s6-setuidgid %I
 backtick -n HOME { homeof %I }
 importas HOME HOME
-if { rsync -a --no-t ${HOME}/.config/service /run/user/%I }
+if { rsync -a --no-t ${HOME}/.config/rc/image /run/user/%I }
 cd /run/user/%I/service
 emptyenv -p
 backtick -D /bin/sh -n SHELL {
