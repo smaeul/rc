@@ -1,5 +1,10 @@
 if { mount -o noatime,nodev,noexec,nosuid -t sysfs sys /sys }
 foreground {
+  if -t { grep -Fq efivarfs /proc/filesystems }
+  if -nt { mountpoint -q /sys/firmware/efi/efivars }
+  mount -o noatime,nodev,noexec,nosuid,ro -t efivarfs efivars /sys/firmware/efi/efivars
+}
+foreground {
   if -t { grep -Fq fusectl /proc/filesystems }
   if -nt { mountpoint -q /sys/fs/fuse/connections }
   mount -o noatime,nodev,noexec,nosuid -t fusectl fusectl /sys/fs/fuse/connections
@@ -13,6 +18,11 @@ foreground {
   if -t { grep -Fq debugfs /proc/filesystems }
   if -nt { mountpoint -q /sys/kernel/debug }
   mount -o noatime,nodev,noexec,nosuid -t debugfs debugfs /sys/kernel/debug
+}
+foreground {
+  if -t { grep -Fq tracefs /proc/filesystems }
+  if -nt { mountpoint -q /sys/kernel/debug/tracing }
+  mount -o noatime,nodev,noexec,nosuid -t tracefs tracefs /sys/kernel/debug/tracing
 }
 foreground {
   if -t { grep -Fq securityfs /proc/filesystems }
