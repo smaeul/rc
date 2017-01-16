@@ -1,0 +1,2 @@
+#!/bin/execlineb -P
+zed -F -p /run/zed.pid -s /run/zed.state
