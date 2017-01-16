@@ -1,2 +1,3 @@
+if -t { mountpoint -q /run/user/%I }
 if { umount -l /run/user/%I }
 rmdir /run/user/%I

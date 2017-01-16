@@ -1,6 +1,40 @@
-if { mkdir -p /run/user/%I }
 if {
   if -nt { mountpoint -q /run/user/%I }
-  mount -o mode=0700,noatime,nodev,nosuid,size=64M -t tmpfs user /run/user/%I
+  if { mkdir -p /run/user/%I }
+  mount -o noatime,nodev,nosuid,gid=%I,mode=0700,size=64M,uid=%I -t tmpfs user /run/user/%I
 }
-chown %I:%I /run/user/%I
+s6-setuidgid %I
+if { mkdir -p /run/user/%I/env }
+if {
+  foreground {
+    backtick -n HOME { homeof %I }
+    importas HOME HOME
+    redirfd -w 1 /run/user/%I/env/HOME
+    printf %s ${HOME}
+  }
+  foreground {
+    redirfd -w 1 /run/user/%I/env/LOGNAME
+    printf %s %I
+  }
+  foreground {
+    importas PATH PATH
+    redirfd -w 1 /run/user/%I/env/PATH
+    printf %s ${PATH}
+  }
+  foreground {
+    backtick -D /bin/sh -n SHELL {
+      pipeline { getent passwd %I }
+      cut -d: -f7
+    }
+    importas SHELL SHELL
+    redirfd -w 1 /run/user/%I/env/SHELL
+    printf %s ${SHELL}
+  }
+  foreground {
+    redirfd -w 1 /run/user/%I/env/XDG_RUNTIME_DIR
+    printf %s /run/user/%I
+  }
+}
+backtick -n HOME { homeof %I }
+importas HOME HOME
+rsync -a ${HOME}/.config/rc/image/ /run/user/%I/service/

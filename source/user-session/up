@@ -1,7 +1,4 @@
 s6-setuidgid %I
-backtick -n HOME { homeof %I }
-importas -u HOME HOME
-foreground { mkdir -p /run/user/%I/service/.s6-svscan }
 foreground {
   umask 077
   redirfd -w 2 /dev/null
@@ -9,5 +6,10 @@ foreground {
 }
 redirfd -w 3 /run/user/%I/service/.s6-svscan/control
 fdclose 3
-if { s6-rc-init -c ${HOME}/.config/rc/compiled -l /run/user/%I/rc /run/user/%I/service }
+if {
+  if -nt { test -d /run/user%I/rc }
+  backtick -n HOME { homeof %I }
+  importas HOME HOME
+  s6-rc-init -c ${HOME}/.config/rc/compiled -l /run/user/%I/rc /run/user/%I/service
+}
 s6-rc -l /run/user/%I/rc change default

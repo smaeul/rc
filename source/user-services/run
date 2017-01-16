@@ -1,17 +1,8 @@
 #!/bin/execlineb -P
 s6-setuidgid %I
-backtick -n HOME { homeof %I }
-importas HOME HOME
-if { rsync -a --no-t ${HOME}/.config/rc/image /run/user/%I }
 cd /run/user/%I/service
 emptyenv -p
-backtick -D /bin/sh -n SHELL {
-  pipeline { getent passwd %I }
-  cut -d: -f7
-}
-export HOME ${HOME}
-export LOGNAME %I
-export XDG_RUNTIME_DIR /run/user/%I
+s6-envdir /run/user/%I/env
 fdmove -c 2 1
 subreaper
 s6-svscan -S
