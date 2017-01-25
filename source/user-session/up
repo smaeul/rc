@@ -7,7 +7,7 @@ foreground {
 redirfd -w 3 /run/user/%I/service/.s6-svscan/control
 fdclose 3
 if {
-  if -nt { test -d /run/user%I/rc }
+  if -nt { test -d /run/user/%I/rc }
   backtick -n HOME { homeof %I }
   importas HOME HOME
   s6-rc-init -c ${HOME}/.config/rc/compiled -l /run/user/%I/rc /run/user/%I/service
