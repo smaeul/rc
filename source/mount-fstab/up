@@ -1,1 +1,2 @@
+if -nt { mountpoint -q %I }
 mount %I
