@@ -11,7 +11,7 @@ hostname
 klogd
 loopback
 networking
-ntpd
+ntpclient
 nullhttpd
 random
 runc
