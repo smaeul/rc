@@ -5,6 +5,4 @@ if { mount -no mode=0755,nosuid,size=1M -t devtmpfs dev /dev }
 if { mount -no mode=0755,nodev,nosuid,size=64M -t tmpfs run /run }
 if { mkdir -p /run/service/s6-linux-init-shutdownd /run/service/s6-svscan-log }
 if { mkfifo -m 0600 /run/service/s6-linux-init-shutdownd/fifo /run/service/s6-svscan-log/fifo }
-if { mkdir -m 02750 /run/uncaught-logs }
-if { chown log:log /run/uncaught-logs }
 s6-linux-init -N -c /etc/rc -p /usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
