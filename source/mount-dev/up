@@ -15,9 +15,11 @@ foreground {
   mount -o noatime,nodev,noexec,nosuid -t mqueue mqueue /dev/mqueue
 }
 foreground {
+  if -t { grep -Fq devpts /proc/filesystems }
   if -nt { mountpoint -q /dev/pts }
   if { mkdir -p /dev/pts }
-  mount -o mode=600,noexec,nosuid,ptmxmode=000 -t devpts devpts /dev/pts
+  if { mount -o noexec,nosuid,ptmxmode=0666 -t devpts devpts /dev/pts }
+  ln -fns pts/ptmx /dev/ptmx
 }
 foreground {
   if -nt { mountpoint -q /dev/shm }
