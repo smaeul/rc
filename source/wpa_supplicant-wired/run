@@ -1,0 +1,2 @@
+#!/bin/execlineb -P
+wpa_supplicant -Dwired -i%I -c/etc/wpa_supplicant/wpa_supplicant-%I.conf
