@@ -1,4 +1,5 @@
 #!/bin/execlineb -P
+
 s6-setuidgid %I
 cd /run/user/%I/service
 emptyenv -p

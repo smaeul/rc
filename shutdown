@@ -1,4 +1,5 @@
 #!/bin/execlineb -S0
+
 foreground { printf "Syncing disks.\n" }
 foreground { sync }
 foreground { printf "Sending all processes the TERM signal.\n" }

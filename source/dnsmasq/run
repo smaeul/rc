@@ -1,3 +1,4 @@
 #!/bin/execlineb -P
+
 fdmove -c 2 1
 dnsmasq -8 - -g dnsmasq -k -u dnsmasq --pid-file

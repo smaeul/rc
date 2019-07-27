@@ -1,3 +1,4 @@
 #!/bin/execlineb -P
+
 foreground { s6-rc -ad change }
 s6-svscanctl -i /run/service

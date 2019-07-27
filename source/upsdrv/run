@@ -1,4 +1,5 @@
 #!/bin/execlineb -P
+
 if { install -d -g nut -m 0700 -o nut /run/nut }
 s6-setuidgid nut
 export NUT_STATEPATH /run/nut

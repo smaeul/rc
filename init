@@ -1,4 +1,5 @@
 #!/bin/execlineb -P
+
 emptyenv
 umask 022
 s6-envdir -If /etc/rc/env

@@ -1,4 +1,5 @@
 #!/bin/sh -eu
+#
 # s6-rc preprocessor and updater frontend
 # Copyright © 2016 Samuel Holland <samuel@sholland.org>
 # See LICENSE in the project directory for license terms.

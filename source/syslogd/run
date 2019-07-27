@@ -1,4 +1,5 @@
 #!/bin/execlineb -P
+
 s6-envuidgid nobody
 fdmove 2 1
 fdmove 1 3
