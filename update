@@ -14,6 +14,18 @@ trap 'rm -rf "$tmpdir"' HUP INT QUIT TERM
 for svcdir in "$base"/source/* ; do
   if test -r "$svcdir"/disabled ; then
     continue
+  elif test -r "$svcdir"/contents ; then
+    svcname=${svcdir##*/}
+    outdir=${tmpdir}/${svcname}
+
+    mkdir "$outdir"
+    printf 'bundle\n' > "$outdir"/type
+
+    while read -r member ; do
+      if ! test -r "${base}/source/${member}"/disabled ; then
+        printf '%s\n' "$member" >> "${outdir}/contents"
+      fi
+    done < "$svcdir"/contents
   elif test -r "$svcdir"/instances ; then
     svcname=${svcdir##*/}
     outdir=${tmpdir}/${svcname}
