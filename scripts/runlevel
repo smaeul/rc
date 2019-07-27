@@ -1,0 +1,3 @@
+#!/bin/execlineb -WS1
+
+s6-rc -pu change $@
