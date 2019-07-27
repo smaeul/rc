@@ -1,4 +1,2 @@
-dnsmasq
 filesystems
-hostname
-loopback
+random
