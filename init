@@ -2,6 +2,7 @@
 
 emptyenv
 umask 022
+export PATH /usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
 s6-envdir -If /etc/rc/env
 s6-setsid -bq
 if { mount -no nodev,noexec,nosuid -t proc proc /proc }
