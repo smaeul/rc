@@ -1,6 +1,6 @@
 if {
   if -nt { mountpoint -q /sys }
-  if { mount -o noatime,nodev,noexec,nosuid -t sysfs sys /sys }
+  mount -o noatime,nodev,noexec,nosuid -t sysfs sys /sys
 }
 foreground {
   if -t { grep -Fq efivarfs /proc/filesystems }
