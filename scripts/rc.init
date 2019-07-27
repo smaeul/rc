@@ -1,0 +1,4 @@
+#!/bin/execlineb -WS1
+
+if { s6-rc-init -c /etc/rc/compiled -t 1000 /run/service }
+s6-rc -bpu change $@

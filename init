@@ -15,8 +15,7 @@ fdmove -c 2 1
 background {
   s6-setsid
   redirfd -w 1 /run/service/logger/fifo
-  if { s6-rc-init -c /etc/rc/compiled -t 1000 /run/service }
-  s6-rc -pu change default
+  /etc/rc/scripts/rc.init default
 }
 unexport !
 cd /run/service
