@@ -1,6 +1,6 @@
 backlight
+crond
 cupsd
-bcron
 devices
 dhcpcd
 dnsmasq
