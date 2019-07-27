@@ -1,2 +1,2 @@
 if -t { mountpoint -q /tmp }
-foreground { umount /tmp }
+umount -l /tmp

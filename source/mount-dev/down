@@ -1,16 +1,16 @@
 foreground {
   if -t { mountpoint -q /dev/hugepages }
-  umount /dev/hugepages
+  umount -l /dev/hugepages
 }
 foreground {
   if -t { mountpoint -q /dev/mqueue }
-  umount /dev/mqueue
+  umount -l /dev/mqueue
 }
 foreground {
   if -t { mountpoint -q /dev/pts }
-  umount /dev/pts
+  umount -l /dev/pts
 }
 foreground {
   if -t { mountpoint -q /dev/shm }
-  umount /dev/shm
+  umount -l /dev/shm
 }

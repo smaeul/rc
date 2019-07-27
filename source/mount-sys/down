@@ -1,17 +1,2 @@
-foreground {
-  if -t { mountpoint -q /sys/fs/fuse/connections }
-  umount /sys/fs/fuse/connections
-}
-foreground {
-  if -t { mountpoint -q /sys/kernel/config }
-  umount /sys/kernel/config
-}
-foreground {
-  if -t { mountpoint -q /sys/kernel/debug }
-  umount /sys/kernel/debug
-}
-foreground {
-  if -t { mountpoint -q /sys/kernel/security }
-  umount /sys/kernel/security
-}
-umount /sys
+if -t { mountpoint -q /sys }
+umount -l /sys
