@@ -1,2 +1,2 @@
-if -nt { mountpoint -q %I }
-mount %I
+ifte { mount -o remount %I } { mount %I }
+mountpoint -q %I
