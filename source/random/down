@@ -1,2 +1,4 @@
+if { mkdir -p /var/lib/misc }
 umask 077
+redirfd -w 2 /dev/null
 dd bs=32 count=256 if=/dev/urandom of=/var/lib/misc/random-seed
