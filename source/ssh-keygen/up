@@ -1,1 +1,1 @@
-ssh-keygen -A
+foreground { ssh-keygen -A }
