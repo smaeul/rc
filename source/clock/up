@@ -1,0 +1,10 @@
+if -t { test -r /var/lib/misc/timestamp }
+backtick -n then { stat -c %Y /var/lib/misc/timestamp }
+backtick -n now { date +%s }
+multisubstitute {
+  importas -u then then
+  importas -u now now
+}
+if -t { test ${then} -gt ${now} }
+if { printf "Setting system clock: " }
+date -s @${then}

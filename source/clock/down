@@ -1,0 +1,12 @@
+if { mkdir -p /var/lib/misc }
+if -t {
+  if -t { test -r /var/lib/misc/timestamp }
+  backtick -n then { stat -c %Y /var/lib/misc/timestamp }
+  backtick -n now { date +%s }
+  multisubstitute {
+    importas -u then then
+    importas -u now now
+  }
+  test ${then} -le ${now}
+}
+touch /var/lib/misc/timestamp
