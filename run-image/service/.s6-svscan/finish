@@ -3,4 +3,4 @@
 redirfd -w 1 /dev/console
 fdmove -c 2 1
 foreground { s6-linux-init-echo -- "s6-svscan exited. Rebooting." }
-s6-linux-init-hpr -r -f
+/etc/rc/shutdown -r

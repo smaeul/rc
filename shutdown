@@ -1,17 +1,11 @@
 #!/bin/execlineb -S0
 
-foreground { printf "Syncing disks.\n" }
 foreground { sync }
-foreground { printf "Sending all processes the TERM signal.\n" }
-foreground { busybox kill -TERM -1 }
-foreground { sleep 2 }
-foreground { printf "Sending all processes the KILL signal.\n" }
-foreground { busybox kill -KILL -1 }
+foreground { kill -TERM -- -1 }
 wait -t 2000 { }
-foreground { printf "Syncing disks.\n" }
+foreground { kill -KILL -- -1 }
+wait -r { }
 foreground { sync }
-foreground { printf "Unmounting disks.\n" }
-foreground { umount -anr }
+foreground { s6-linux-init-umountall }
 foreground { sync }
-foreground { printf "Performing "${1}".\n" }
-busybox ${1} -f
+s6-linux-init-hpr -f -r $@

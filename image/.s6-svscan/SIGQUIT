@@ -1,4 +1,0 @@
-#!/bin/execlineb -P
-
-foreground { /etc/rc/scripts/rc.shutdown }
-s6-svscanctl -q /run/service
