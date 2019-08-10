@@ -1,1 +1,1 @@
-foreground { umount %I }
+foreground { umount -r %I }
