@@ -1,4 +1,4 @@
-if { udevadm info --cleanup-db }
-if { udevadm trigger --type=subsystems --action=add }
-if { udevadm trigger --type=devices --action=add }
+if { udevadm trigger --action=add --attr-match=dev }
+if { udevadm trigger --action=add --type=subsystems }
+if { udevadm trigger --action=add --type=devices }
 udevadm settle
