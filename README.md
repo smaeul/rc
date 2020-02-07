@@ -33,7 +33,7 @@ and s6-rc, see [https://github.com/smaeul/rc-user][rc-user].
    Some services may require their own individual users; see their respective
    run scripts.
 4. Run `/etc/rc/update` to compile the service database.
-5. Add `init=/etc/rc/update` to your kernel command line (replacing any
+5. Add `init=/etc/rc/init` to your kernel command line (replacing any
    existing init path).
 6. Reboot.
 
