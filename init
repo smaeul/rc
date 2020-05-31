@@ -1,8 +1,8 @@
 #!/bin/execlineb -P
 
-if { mount -no nodev,noexec,nosuid -t proc proc /proc }
-if { mount -no mode=0755,nosuid,size=1M -t devtmpfs dev /dev }
-if { mount -no mode=0755,nodev,nosuid,size=64M -t tmpfs run /run }
+foreground { mount -no nodev,noexec,nosuid -t proc proc /proc }
+foreground { mount -no mode=0755,nosuid,size=1M -t devtmpfs dev /dev }
+foreground { mount -no mode=0755,nodev,nosuid,size=64M -t tmpfs run /run }
 if { mkdir -p /run/service/s6-linux-init-shutdownd /run/service/s6-svscan-log }
 if { mkfifo -m 0600 /run/service/s6-linux-init-shutdownd/fifo /run/service/s6-svscan-log/fifo }
 s6-linux-init -N -c /etc/rc -p /usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
